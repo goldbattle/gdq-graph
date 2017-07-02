@@ -24,6 +24,7 @@
 <!-- Javascript files that we need -->
 <script type="text/javascript" src="assets/js/plotly-1.5.0.min.js"></script>
 <script type="text/javascript" src='assets/js/sql.js'></script>
+<script type="text/javascript" src='assets/js/moment.js'></script>
 
 
 
@@ -49,9 +50,14 @@
         // Loop through the contents
         // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
         for (var i=0; i<contents["values"].length; i++) {
+            // Add followers and viewer data
             followers.push(contents.values[i][6]);
             viewers.push(contents.values[i][7]);
-            dates.push(contents.values[i][8]);
+            // Convert date to local timezone (database uses utc)
+            // https://stackoverflow.com/a/32372222/7718197
+            var date = new Date(contents.values[i][8]+' UTC');
+            date.setMinutes(date.getMinutes() - new Date().getTimezoneOffset());
+            dates.push(date);
         }
 
         // Plotly datatypes
