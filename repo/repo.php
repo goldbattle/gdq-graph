@@ -10,7 +10,7 @@ echo $output."\n";
 echo "==================================\n";
 
 // Commit
-$output = shell_exec('cd '.dirname(__FILE__).' && git commit -m "Datbase Update - '.date("Y-m-d h:i:sa").'" ');
+$output = shell_exec('cd '.dirname(__FILE__).' && git commit --author="db_bot <db_bot@example.com>" -m "Datbase Update - '.date("Y-m-d h:i:sa").'" ');
 echo "==================================\n";
 echo $output."\n";
 echo "==================================\n";
