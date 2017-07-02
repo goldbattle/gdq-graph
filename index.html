@@ -1,14 +1,30 @@
 <!DOCTYPE html> 
 <html>
 
+<style type="text/css">
+    html, body {
+        margin: 0;
+        height: 100%;
+    }
+    .content {
+        height:100%
+    }
+    /*div {
+        display:table-row;
+        height:100%;
+        width:100%;
+    }*/
+</style>
+
 <!-- Our html details -->
-<body style="padding-left:25px;padding-right:25px">
-    <div id="plot-viewer" style="width:100%;height:100%"></div>
+<body>
+    <div id="plot-viewer" class="content"></div>
 </body>
 
 <!-- Javascript files that we need -->
 <script type="text/javascript" src="assets/js/plotly-1.5.0.min.js"></script>
 <script type="text/javascript" src='assets/js/sql.js'></script>
+
 
 
 <!-- Script that opens the sqlite db and then displays it -->
@@ -62,6 +78,7 @@
                 "size": 36
             },
             showlegend: false,
+            // autosize: true,
             yaxis: {
                 title: 'Viewer Count'
             },
@@ -72,9 +89,27 @@
             }
         };
         Plotly.newPlot('plot-viewer', data, layout);
+        
 
     };
+    
+    // Send the request
     xhr.send();
+
+    // On window resize, redo the graphs
+    window.onresize = function() {
+        var d3 = Plotly.d3;
+        var WIDTH_IN_PERCENT_OF_PARENT = 60,
+    HEIGHT_IN_PERCENT_OF_PARENT = 80;
+        var gd3 = d3.select('#plot-viewer')
+          .style({
+            width: screen.width,
+            height: screen.height,
+          });
+        gd = gd3.node()
+        Plotly.Plots.resize(gd);
+    };
+
 </script>
 
 
