@@ -16,7 +16,7 @@ foreach($channels as $streamer){
   if ($json_array['stream'] != NULL) {
 
     // Create (connect to) SQLite database in file
-    $file_db = new PDO('sqlite:'.dirname(__FILE__).'/../twitch.sqlite3');
+    $file_db = new PDO('sqlite:'.dirname(__FILE__).'/../2017_sgdq.sqlite3');
     // Set errormode to exceptions
     $file_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // Create table messages
